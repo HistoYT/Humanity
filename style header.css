@@ -1,0 +1,106 @@
+/* Reset básico */
+* {box-sizing: border-box; margin: 0; padding: 0}
+html, body {height: 100%}
+body {
+	font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	background: #f6f3f0; /* color neutro para el resto de la página */
+	color: #2d1b0e;
+}
+
+:root{
+	/* Paleta inspirada en la imagen */
+	--bg-orange: #cf7b22; /* encabezado principal */
+	--bg-orange-2: #b85b0f; /* degradado inferior */
+	--gold-1: #f4c96b;
+	--gold-2: #d39a2a;
+	--gold-3: #8b5c13;
+	--brand-dark: #6b3f12;
+}
+
+/* Encabezado */
+.site-header{
+	background: linear-gradient(180deg, var(--bg-orange) 0%, var(--bg-orange-2) 100%);
+	padding: 48px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: inset 0 -8px 0 rgba(0,0,0,0.06);
+}
+
+.header-inner{
+	width: 100%;
+	max-width: 1100px;
+	display: flex;
+	align-items: center;
+	gap: 28px;
+}
+
+/* Emblema (cuadro con H y punto) */
+.emblem{
+	width: 128px;
+	height: 128px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 100%);
+	box-shadow: 0 12px 20px rgba(0,0,0,0.18), inset 0 -6px 12px rgba(0,0,0,0.06);
+}
+
+.emblem::after{
+	/* punto circular que aparece en la esquina superior derecha del emblema, similar al punto del logo */
+	content: '';
+	position: absolute;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	right: -10px;
+	top: -14px;
+	background: linear-gradient(180deg, var(--gold-1), #e6b745);
+	box-shadow: 0 6px 10px rgba(0,0,0,0.18);
+}
+
+.emblem-h{
+	font-weight: 800;
+	font-size: 68px;
+	color: rgba(30,18,9,0.95);
+	font-family: 'Poppins', sans-serif;
+	letter-spacing: 2px;
+	text-shadow: 0 2px 0 rgba(255,255,255,0.12), 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.brand{display:flex;flex-direction:column}
+
+.brand-title{
+	font-size: 64px;
+	line-height: 1;
+	margin: 0;
+	font-weight: 800;
+	letter-spacing: 6px;
+	/* texto con degradado dorado */
+	background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	text-shadow: 0 3px 0 rgba(0,0,0,0.12), 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.brand-sub{
+	margin-top: 8px;
+	color: rgba(255,245,230,0.9);
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.demo{padding:40px 20px;font-size:16px;color:#333}
+
+/* Responsividad */
+@media (max-width: 700px){
+	.header-inner{flex-direction:column;gap:16px;padding:8px}
+	.emblem{width:96px;height:96px}
+	.emblem-h{font-size:46px}
+	.brand-title{font-size:36px;letter-spacing:4px;text-align:center}
+	.brand-sub{text-align:center}
+}
+
