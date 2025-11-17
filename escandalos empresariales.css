@@ -1,0 +1,31 @@
+/* Sección Escándalos empresariales: fullscreen con imagen de fondo, frase y botón */
+
+.escandalos-section{
+    position:relative;
+    width:100%;
+    height:100vh;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#000;
+}
+
+.esc-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:contrast(.95) brightness(.75);}
+.esc-bg-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(6,7,9,0.45), rgba(6,7,9,0.55));z-index:2}
+
+.esc-content{position:relative;z-index:3;text-align:center;color:#fff;padding:0 6vw;pointer-events:auto}
+
+.esc-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:3.2rem;margin:0 0 12px 0;letter-spacing:0.6px;opacity:0;transform:translateY(-18px);animation:escTitleIn .8s cubic-bezier(.2,.9,.3,1) .12s forwards}
+.esc-subtitle{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.2rem;margin:0 0 26px 0;color:rgba(255,255,255,0.9);opacity:0;transform:translateY(-12px);animation:escSubIn .8s cubic-bezier(.2,.9,.3,1) .26s forwards}
+
+.esc-start-btn{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.05rem;padding:12px 32px;border-radius:10px;border:none;background:linear-gradient(135deg,#d39a2a 0%,#f4c96b 100%);color:#111;cursor:pointer;box-shadow:0 12px 34px rgba(211,154,42,0.28);opacity:0;transform:translateY(18px) scale(.98);animation:escBtnIn .8s cubic-bezier(.2,.9,.3,1) .42s forwards}
+.esc-start-btn:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(211,154,42,0.36)}
+
+@keyframes escTitleIn{0%{opacity:0;transform:translateY(-18px)}100%{opacity:1;transform:none}}
+@keyframes escSubIn{0%{opacity:0;transform:translateY(-12px)}100%{opacity:1;transform:none}}
+@keyframes escBtnIn{0%{opacity:0;transform:translateY(18px) scale(.98)}100%{opacity:1;transform:none}}
+
+@media (max-width:900px){.esc-title{font-size:2.1rem}.esc-subtitle{font-size:1rem;padding:0 12px}}
+@media (max-width:600px){.esc-title{font-size:1.6rem}.esc-subtitle{font-size:.95rem}.esc-start-btn{padding:10px 22px;font-size:.95rem}}

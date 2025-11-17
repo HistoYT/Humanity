@@ -1,0 +1,193 @@
+/* Sección de introducción a tema: imagen de fondo fullscreen con título y botón */
+
+.intro-tema-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+    padding: 0;
+}
+
+/* Imagen de fondo con efecto cover */
+.intro-tema-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: contrast(.98) brightness(.92);
+}
+
+/* Overlay para mejorar legibilidad del texto */
+.intro-tema-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.38);
+    z-index: 2;
+}
+
+/* Contenedor del contenido (título, subtitle, botón) */
+.intro-tema-content {
+    position: relative;
+    z-index: 3;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 6vw;
+}
+
+/* Título principal */
+.intro-tema-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 3.6rem;
+    text-align: center;
+    margin: 0 0 16px 0;
+    color: #fff;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    line-height: 1.1;
+    letter-spacing: 1px;
+}
+
+/* Subtítulo descriptivo */
+.intro-tema-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 36px 0;
+    max-width: 600px;
+    line-height: 1.4;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón Empezar con estilo dorado */
+.intro-tema-button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f4c96b 0%, #d39a2a 100%);
+    color: #1b1b1b;
+    cursor: pointer;
+    transition: transform .28s ease, box-shadow .28s ease;
+    box-shadow: 0 8px 24px rgba(212, 154, 42, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.intro-tema-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(212, 154, 42, 0.4);
+}
+
+.intro-tema-button:active {
+    transform: translateY(-1px);
+}
+
+.intro-tema-button:focus {
+    outline: 3px solid rgba(244, 201, 107, 0.5);
+    outline-offset: 4px;
+}
+
+/* Animación de entrada del contenido */
+.intro-tema-title {
+    opacity: 0;
+    transform: translateY(-20px) scale(.98);
+    animation: introTitleIn .8s cubic-bezier(.2, .9, .3, 1) .12s forwards;
+}
+
+.intro-tema-subtitle {
+    opacity: 0;
+    transform: translateY(-16px);
+    animation: introSubtitleIn .8s cubic-bezier(.2, .9, .3, 1) .28s forwards;
+}
+
+.intro-tema-button {
+    opacity: 0;
+    transform: translateY(14px) scale(.95);
+    animation: introButtonIn .7s cubic-bezier(.2, .9, .3, 1) .42s forwards;
+}
+
+@keyframes introTitleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(.98);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes introSubtitleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes introButtonIn {
+    0% {
+        opacity: 0;
+        transform: translateY(14px) scale(.95);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Responsive: tablets y pantallas medianas */
+@media (max-width: 900px) {
+    .intro-tema-title {
+        font-size: 2.4rem;
+    }
+
+    .intro-tema-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 28px;
+    }
+
+    .intro-tema-button {
+        padding: 12px 28px;
+        font-size: 1rem;
+    }
+}
+
+/* Responsive: móviles */
+@media (max-width: 600px) {
+    .intro-tema-title {
+        font-size: 1.8rem;
+    }
+
+    .intro-tema-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+    }
+
+    .intro-tema-button {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+
+    .intro-tema-content {
+        padding: 0 20px;
+    }
+}

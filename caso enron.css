@@ -1,0 +1,107 @@
+/* Caso Enron — Sección inmersiva, creativa e interactiva */
+
+.caso-enron-section{
+    position:relative;
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    padding:80px 20px;
+    background:#050505;
+}
+
+.caso-bg-video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:grayscale(.08) contrast(.95) brightness(.6);
+}
+.caso-bg-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(3,6,10,0.55), rgba(3,6,10,0.7));z-index:2}
+
+.caso-inner{position:relative;z-index:3;max-width:1200px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+
+/* Left: headline and immersive intro */
+.caso-hero{color:#fff;padding:24px}
+.caso-kicker{font-family:'Poppins',sans-serif;font-weight:700;color:#f4c96b;margin-bottom:8px}
+.caso-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:2.8rem;margin:0 0 14px 0;line-height:1.05;text-shadow:0 12px 40px rgba(0,0,0,0.6)}
+.caso-description{color:rgba(255,255,255,0.92);font-size:1.05rem;line-height:1.6;margin-bottom:20px}
+
+/* Cards stack: resumen, dilema, lección */
+.caso-cards{display:flex;flex-direction:column;gap:18px}
+.caso-card{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border-radius:14px;padding:0;backdrop-filter:blur(6px);box-shadow:0 18px 44px rgba(0,0,0,0.6);cursor:pointer;transform-style:preserve-3d;transition:box-shadow .35s;perspective:1200px}
+.caso-card:hover{transform:translateY(-6px);box-shadow:0 34px 80px rgba(0,0,0,0.7)}
+.caso-card h4{margin:0 0 8px 0;color:#f4c96b}
+.caso-card p{margin:0;color:rgba(255,255,255,0.95)}
+
+/* Inner flippable element */
+.card-inner{position:relative;width:100%;padding:18px;border-radius:14px;min-height:90px;transition:transform .72s cubic-bezier(.2,.9,.3,1);transform-style:preserve-3d}
+.caso-card.is-flipped .card-inner{transform:rotateY(180deg)}
+.card-front, .card-back{backface-visibility:hidden;border-radius:12px}
+.card-front{position:relative}
+.card-back{position:absolute;inset:0;padding:18px;transform:rotateY(180deg);display:flex;align-items:center}
+
+/* Slight lift for front during hover */
+.caso-card .card-front{transition:transform .3s}
+.caso-card:hover .card-front{transform:translateY(-6px)}
+
+/* Right: visual composition with floating images */
+.caso-visual{position:relative;height:520px;border-radius:14px;display:grid;place-items:center}
+.caso-photo{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 26px 68px rgba(0,0,0,0.6);transition:transform .6s}
+.caso-photo img{display:block;width:100%;height:100%;object-fit:cover}
+
+.caso-photo.photo-1{width:320px;height:220px;left:6%;top:8%;transform:rotate(-6deg)}
+.caso-photo.photo-2{width:240px;height:160px;right:4%;top:16%;transform:rotate(6deg)}
+.caso-photo.photo-3{width:420px;height:260px;left:20%;bottom:10%;transform:rotate(-2deg)}
+.caso-photo.photo-4{width:200px;height:140px;right:18%;bottom:20%;transform:rotate(10deg)}
+
+.caso-cta{margin-top:18px}
+.caso-cta button{background:linear-gradient(135deg,#f4c96b 0%,#d39a2a 100%);border:none;padding:12px 28px;border-radius:10px;font-weight:700}
+
+/* Entrance animations */
+.caso-title, .caso-kicker, .caso-description{opacity:0;transform:translateY(18px)}
+.caso-card{opacity:0;transform:translateY(28px) scale(.98)}
+.caso-photo{opacity:0;transform:translateY(18px) scale(.98)}
+
+/* Reveal only when section is in-view */
+.caso-enron-section.in-view .caso-title,
+.caso-enron-section.in-view .caso-kicker,
+.caso-enron-section.in-view .caso-description{
+    animation:fadeUp .7s cubic-bezier(.2,.9,.3,1) .12s forwards;
+}
+.caso-enron-section.in-view .caso-card{
+    animation:cardIn .7s cubic-bezier(.2,.9,.3,1) .18s forwards;
+}
+.caso-enron-section.in-view .caso-photo{
+    animation:photoIn .9s cubic-bezier(.2,.9,.3,1) .28s forwards;
+}
+
+@keyframes fadeUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
+@keyframes cardIn{0%{opacity:0;transform:translateY(28px) scale(.98)}100%{opacity:1;transform:none}}
+@keyframes photoIn{0%{opacity:0;transform:translateY(18px) scale(.98)}100%{opacity:1;transform:none}}
+
+/* Timeline styles */
+.caso-timeline{margin-top:22px;margin-left:2px;color:rgba(255,255,255,0.95)}
+.timeline-title{font-size:0.95rem;color:#f4c96b;margin:0 0 10px 0;font-weight:700}
+.timeline-track{display:flex;flex-direction:column;gap:12px}
+.timeline-item{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));transform:translateY(16px) rotateX(6deg);opacity:0;transition:transform .6s cubic-bezier(.2,.9,.3,1),opacity .5s}
+.caso-enron-section.in-view .timeline-item{opacity:1;transform:translateY(0) rotateX(0)}
+.timeline-node{width:14px;height:14px;border-radius:50%;background:#f4c96b;flex:0 0 14px;box-shadow:0 6px 18px rgba(244,201,107,0.18)}
+.timeline-label{font-weight:700}
+.timeline-detail{display:block;color:rgba(255,255,255,0.85);font-size:0.95rem;margin-top:6px}
+.timeline-item.active{background:linear-gradient(90deg, rgba(244,201,107,0.06), rgba(255,255,255,0.02));transform:translateY(-6px) scale(1.02)}
+
+/* When section not in view, hide timeline (aria-hidden handled by JS) */
+.caso-enron-section:not(.in-view) .caso-timeline{pointer-events:none}
+
+/* States from game decisions */
+.timeline-item.visited{box-shadow:0 18px 40px rgba(0,0,0,0.55);border-left:4px solid rgba(244,201,107,0.9)}
+.timeline-item.positive{background:linear-gradient(90deg, rgba(72,187,120,0.04), rgba(255,255,255,0.01));border-left-color:rgba(72,187,120,0.95)}
+.timeline-item.negative{background:linear-gradient(90deg, rgba(220,53,69,0.04), rgba(255,255,255,0.01));border-left-color:rgba(220,53,69,0.95)}
+.timeline-item.warning{box-shadow:0 24px 64px rgba(220,53,69,0.08);outline:1px solid rgba(220,53,69,0.06)}
+
+/* pulse animation for attention */
+.timeline-item.pulse{animation:pulseGlow .9s ease-in-out}
+@keyframes pulseGlow{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.02);box-shadow:0 30px 80px rgba(0,0,0,0.6)}100%{transform:translateY(0) scale(1)}}
+
+/* Responsive */
+@media(max-width:1000px){.caso-inner{grid-template-columns:1fr;gap:20px}.caso-visual{height:420px}.caso-photo.photo-3{left:8%;width:80%;height:220px}}
+@media(max-width:600px){.caso-title{font-size:1.6rem}.caso-photo{display:none}.caso-card{padding:12px}}

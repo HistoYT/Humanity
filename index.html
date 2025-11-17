@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="style iso 26000.css">
     <link rel="stylesheet" href="style iso 14000.css">
     <link rel="stylesheet" href="style iso 9000.css">
+    <link rel="stylesheet" href="gobierno corporativo.css">
+    <link rel="stylesheet" href="definicion gobierno corporativo.css">
+    <link rel="stylesheet" href="escandalos empresariales.css">
+    <link rel="stylesheet" href="juego gobierno corporativo.css">
+    <link rel="stylesheet" href="caso enron.css">
 </head>
 <body>
 
@@ -38,6 +43,7 @@
             <button class="hero-button" id="startButton">Empezar</button>
         </div>
     </section>
+
 
    
 
@@ -152,24 +158,230 @@ La ISO 9000 reúne los principios que ayudan a las empresas a ofrecer productos 
             <h2 class="quality-phrase">Porque la calidad no es suerte, es tener un sistema que funcione 💪</h2>
         </div>
     </section>
+
+    <!-- Sección intro tema: imagen de fondo, título centrado y botón -->
+    <section class="intro-tema-section" id="intro-tema-section">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80" alt="Gobierno Corporativo" class="intro-tema-bg">
+        <div class="intro-tema-overlay" aria-hidden="true"></div>
+        
+        <div class="intro-tema-content">
+            <h2 class="intro-tema-title">Gobierno Corporativo</h2>
+            <p class="intro-tema-subtitle">Liderazgo, transparencia y decisiones que importan</p>
+            <button class="intro-tema-button" id="introTemasButton">Empezar</button>
+        </div>
+    </section>
+
+    <!-- Sección definición gobierno corporativo: layout creativo con imágenes y frase -->
+    <section class="def-gc-section" id="def-gc-section">
+        <div class="def-gc-container">
+            <!-- Lado izquierdo: Título y frase explicativa -->
+            <div class="def-gc-content">
+                <h3 class="def-gc-title">¿Qué es el Gobierno Corporativo?</h3>
+                <p class="def-gc-phrase">Es como el manual de <strong>'cómo se maneja la empresa'</strong>, para que nadie se invente reglas raras y todo funcione transparentemente.</p>
+                <div class="def-gc-accent"></div>
+            </div>
+
+            <!-- Lado derecho: Galería de imágenes con composición asimétrica -->
+            <div class="def-gc-gallery">
+                <div class="gallery-item item-1">
+                    <img src="https://diarioresponsable.com/images/opinion_gobierno_corporativo_DR_copy.jpg" alt="Transparencia corporativa">
+                </div>
+                <div class="gallery-item item-2">
+                    <img src="https://media.gettyimages.com/id/1436387800/es/v%C3%ADdeo/hombre-de-negocios-caminando-y-pasillo-en-la-oficina-hotel-o-sala-de-conferencias-con-un.jpg?s=640x640&k=20&c=g3-8sw_n2O3YUeJQhk1qlf2N07TBly4hZodR4wbme5A=" alt="Liderazgo empresarial">
+                </div>
+                <div class="gallery-item item-3">
+                    <img src="https://s44783.pcdn.co/wp-content/uploads/sites/6/2024/01/gobierno-corporativo.jpg.optimal.jpg" alt="Gestión corporativa">
+                </div>
+                <div class="gallery-item item-4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8BZVXstkRvwQF6-CZ_tt4K9cnZQZBUn4AqJ1R3Q0_tXsmt56hVB3TBUglDlSkp2Vm5KA&usqp=CAU" alt="Reglas y orden">
+                </div>
+            </div>
+        </div>
+    </section>
+
     </main>
 
+    <!-- Sección Juego: Decisiones sobre Gobierno Corporativo -->
+    <section class="game-section" id="game-section">
+        <!-- Video de fondo fullscreen -->
+        <video class="game-bg-video" autoplay muted loop playsinline poster="">
+            <source src="https://media.istockphoto.com/id/1036949572/es/v%C3%ADdeo/mujer-de-negocios-cauc%C3%A1sico-de-con-el-pelo-oscuro-lleva-una-reuni%C3%B3n-en-la-sala-de-vidrio.mp4?s=mp4-640x640-is&k=20&c=g5Ks6OBOLtNyWPq9Cs3QKAoCYxi8rssdhK1Cf3BlS_g=" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+
+        <!-- Overlay oscuro para mejorar legibilidad -->
+        <div class="game-bg-overlay" aria-hidden="true"></div>
+
+        <div class="game-container">
+            <div class="game-content" id="gameContent">
+                <!-- Pantalla de inicio del juego -->
+                <div class="game-screen game-start" id="gameStart">
+                    <h2 class="game-title">Desafío Corporativo</h2>
+                    <p class="game-intro">Eres el CEO de una empresa. Toma decisiones que definirán el futuro de tu compañía. ¿Priorizarás la transparencia y la ética, o buscarás ganancias rápidas?</p>
+                    <button class="game-btn-start" id="gameStartBtn">Jugar Ahora</button>
+                </div>
+
+                <!-- Pantalla de juego (escenarios) -->
+                <div class="game-screen game-play" id="gamePlay" style="display:none;">
+                    <div class="game-progress">
+                        <span class="progress-text" id="progressText">Escenario 1 de 3</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+
+                    <div class="scenario-box">
+                        <h3 class="scenario-title" id="scenarioTitle">Escenario</h3>
+                        <p class="scenario-text" id="scenarioText">Descripción del escenario</p>
+                    </div>
+
+                    <div class="decision-buttons">
+                        <button class="decision-btn decision-btn-a" id="decisionA">Opción A</button>
+                        <button class="decision-btn decision-btn-b" id="decisionB">Opción B</button>
+                    </div>
+
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Transparencia</span>
+                            <div class="stat-bar"><div class="stat-fill" id="statTransparency" style="width:50%"></div></div>
+                            <span class="stat-value" id="statTransparencyValue">50%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Ganancias</span>
+                            <div class="stat-bar"><div class="stat-fill stat-gain" id="statGains" style="width:50%"></div></div>
+                            <span class="stat-value" id="statGainsValue">50%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reputación</span>
+                            <div class="stat-bar"><div class="stat-fill stat-rep" id="statReputation" style="width:50%"></div></div>
+                            <span class="stat-value" id="statReputationValue">50%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pantalla de resultado final -->
+                <div class="game-screen game-result" id="gameResult" style="display:none;">
+                    <div class="result-box">
+                        <h2 class="result-title" id="resultTitle">Juego Terminado</h2>
+                        <p class="result-message" id="resultMessage">Mensaje de resultado</p>
+                        <div class="result-stats">
+                            <div class="result-stat">
+                                <span class="result-stat-label">Transparencia</span>
+                                <span class="result-stat-value" id="resultTransparency">50%</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="result-stat-label">Ganancias</span>
+                                <span class="result-stat-value" id="resultGains">50%</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="result-stat-label">Reputación</span>
+                                <span class="result-stat-value" id="resultReputation">50%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="game-btn-restart" id="gameRestartBtn">Jugar de Nuevo</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
- 
+ <section class="escandalos-section" id="escandalos-section">
+        <img src="https://images.unsplash.com/photo-1522098543979-ffc7f79f8c2a?w=1400&q=80" alt="Escándalos empresariales" class="esc-bg-img">
+        <div class="esc-bg-overlay" aria-hidden="true"></div>
+        <div class="esc-content">
+            <h2 class="esc-title">Escándalos empresariales</h2>
+            <p class="esc-subtitle">Lecciones y consecuencias</p>
+            <button class="esc-start-btn" id="escStartBtn">Empezar</button>
+        </div>
+    </section>
+   <section class="caso-enron-section" id="caso-enron">
+        <video class="caso-bg-video" autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-stock-footage-of-finance-1600x900-1719?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb3ZlcnItdmlkZW8tMTcxOSIsImlhdCI6MTY5OTg2MDI3N30.sVh0kq2j1qM6o2n0d0Iu8sUo3r6NQxjv4qvCqVvN3Rk"></video>
+        <div class="caso-bg-overlay"></div>
+        <div class="caso-inner">
+            <div class="caso-hero">
+                <div class="caso-kicker">Caso de Estudio</div>
+                <h2 class="caso-title">Enron — Cuando la contabilidad se volvió narrativa</h2>
+                <p class="caso-description">Enron fue, durante años, la sensación de Wall Street: un gigante energético que prometía crecimiento infinito. Tras prácticas complejas de contabilidad, entidades fuera de balance y reportes inflados, la verdad aflóró en 2001. Lo que vino después fue una caída meteórica, quiebras y el colapso de la confianza pública.</p>
 
-    <script>
-        
-        // Pequeña mejora: al pulsar 'Empezar' hacemos scroll suave hasta el contenido
-        document.getElementById('startButton')?.addEventListener('click', function(){
-            const target = document.getElementById('main-content');
-            if(target){
-                target.scrollIntoView({behavior:'smooth'});
-            }
-        });
-    </script>
+                <div class="caso-cards">
+                    <div class="caso-card" id="card-resumen" tabindex="0" role="button" aria-pressed="false">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <h4>Resumen</h4>
+                                <p>Enron utilizó estructuras opacas y acuerdos fuera de balance para esconder deuda y exagerar ganancias. La narrativa financiera sustituyó a la transparencia.</p>
+                            </div>
+                            <div class="card-back">
+                                <p>Documentos internos, como correos y contratos, mostraron la intención deliberada de ocultar riesgos y mantener el precio de la acción.</p>
+                            </div>
+                        </div>
+                    </div>
 
-  
+                    <div class="caso-card" id="card-dilema" tabindex="0" role="button" aria-pressed="false">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <h4>El dilema ético</h4>
+                                <p>¿Preservar la imagen y ganancias a corto plazo, o revelar la verdad aunque provoque pérdidas inmediatas? Ejecutivos eligieron la primera opción, sacrificando la transparencia.</p>
+                            </div>
+                            <div class="card-back">
+                                <p>La presión por mantener valor de mercado y bonos llevó a priorizar incentivos personales sobre deber fiduciario.</p>
+                            </div>
+                        </div>
+                    </div>
 
-</body>
+                    <div class="caso-card" id="card-leccion" tabindex="0" role="button" aria-pressed="false">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <h4>Lección global</h4>
+                                <p>La transparencia no es opcional. La confianza de mercados y comunidades es la moneda más valiosa; sin ella, las instituciones colapsan.</p>
+                            </div>
+                            <div class="card-back">
+                                <p>Recomendación: refuerza controles, separa funciones, recompensa la honestidad y exige reportes claros y auditables.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="caso-cta"><button id="volver-esc">Volver a Escándalos</button></div>
+                </div>
+
+                <!-- Timeline interactivo: aparece cuando la sección está en viewport -->
+                <div class="caso-timeline" id="casoTimeline" aria-hidden="true">
+                    <h4 class="timeline-title">Línea de tiempo</h4>
+                    <div class="timeline-track">
+                        <div class="timeline-item" data-year="1997" tabindex="0" role="button" aria-expanded="false">
+                            <div class="timeline-node"></div>
+                            <div class="timeline-label">1997 — Expansión</div>
+                            <div class="timeline-detail">Enron acelera su crecimiento con trading de energía y adquisiciones agresivas.</div>
+                        </div>
+                        <div class="timeline-item" data-year="1999" tabindex="0" role="button" aria-expanded="false">
+                            <div class="timeline-node"></div>
+                            <div class="timeline-label">1999 — Complejidad financiera</div>
+                            <div class="timeline-detail">Surgen estructuras fuera de balance (SPEs) para gestionar riesgos y beneficios.</div>
+                        </div>
+                        <div class="timeline-item" data-year="2000" tabindex="0" role="button" aria-expanded="false">
+                            <div class="timeline-node"></div>
+                            <div class="timeline-label">2000 — Señales de alerta</div>
+                            <div class="timeline-detail">Analistas y periodistas empiezan a cuestionar la transparencia de los estados.</div>
+                        </div>
+                        <div class="timeline-item" data-year="2001" tabindex="0" role="button" aria-expanded="false">
+                            <div class="timeline-node"></div>
+                            <div class="timeline-label">2001 — Colapso</div>
+                            <div class="timeline-detail">La verdad sale a la luz: quiebra y pérdida masiva de confianza.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="caso-visual">
+                <div class="caso-photo photo-1"><img src="https://images.unsplash.com/photo-1542223616-0e4a7d9f8d5b?auto=format&fit=crop&w=800&q=60" alt="Wall Street"></div>
+                <div class="caso-photo photo-2"><img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=800&q=60" alt="Documentos"></div>
+                <div class="caso-photo photo-3"><img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=60" alt="Tablas y números"></div>
+                <div class="caso-photo photo-4"><img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=800&q=60" alt="Junta directiva"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="juego gobierno corporativo.js"></script>
+    <script src="caso enron.js"></script>
 </html>

@@ -1,0 +1,485 @@
+/* Juego Corporativo: Sección interactiva con decisiones y estadísticas */
+
+.game-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Video de fondo */
+.game-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: contrast(.98) brightness(.85) saturate(.95);
+}
+
+/* Overlay oscuro para mejorar contraste y legibilidad */
+.game-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 12, 5, 0.45);
+    z-index: 2;
+}
+
+.game-container {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(11, 8, 5, 0.25);
+    overflow: hidden;
+}
+
+.game-content {
+    padding: 60px 40px;
+}
+
+/* ===== PANTALLA DE INICIO ===== */
+.game-start {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.game-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: #1b1b1b;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.5px;
+    opacity: 0;
+    animation: gameTitleIn .8s ease-out .2s forwards;
+}
+
+.game-intro {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 32px 0;
+    max-width: 520px;
+    opacity: 0;
+    animation: gameIntroIn .8s ease-out .4s forwards;
+}
+
+.game-btn-start,
+.game-btn-restart {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f4c96b 0%, #d39a2a 100%);
+    color: #1b1b1b;
+    cursor: pointer;
+    transition: all .28s ease;
+    box-shadow: 0 8px 24px rgba(212, 154, 42, 0.3);
+    opacity: 0;
+    animation: gameButtonIn .8s ease-out .6s forwards;
+}
+
+.game-btn-start:hover,
+.game-btn-restart:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(212, 154, 42, 0.4);
+}
+
+.game-btn-start:active,
+.game-btn-restart:active {
+    transform: translateY(-1px);
+}
+
+/* ===== PANTALLA DE JUEGO ===== */
+.game-play {
+    min-height: 500px;
+}
+
+.game-progress {
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: gameProgressIn .7s ease-out .1s forwards;
+}
+
+.progress-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #d39a2a;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f4c96b 0%, #d39a2a 100%);
+    border-radius: 3px;
+    transition: width .4s ease;
+}
+
+/* Escenario */
+.scenario-box {
+    background: linear-gradient(135deg, rgba(244, 201, 107, 0.08) 0%, rgba(211, 154, 42, 0.04) 100%);
+    padding: 32px;
+    border-radius: 14px;
+    margin-bottom: 32px;
+    border-left: 4px solid #d39a2a;
+    opacity: 0;
+    animation: scenarioIn .7s ease-out .2s forwards;
+}
+
+.scenario-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #1b1b1b;
+    margin: 0 0 12px 0;
+}
+
+.scenario-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Botones de decisión */
+.decision-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.decision-btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 16px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all .28s ease;
+    text-align: left;
+    opacity: 0;
+    animation: decisionIn .7s ease-out forwards;
+}
+
+.decision-btn-a {
+    animation-delay: .3s;
+    border-left: 4px solid #7cb342;
+}
+
+.decision-btn-b {
+    animation-delay: .38s;
+    border-left: 4px solid #ff6f00;
+}
+
+.decision-btn:hover {
+    border-color: #d39a2a;
+    background: rgba(244, 201, 107, 0.08);
+    transform: translateY(-2px);
+}
+
+.decision-btn:active {
+    transform: translateY(0);
+}
+
+.decision-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Estadísticas del juego */
+.game-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    opacity: 0;
+    animation: statsIn .7s ease-out .46s forwards;
+}
+
+.stat-item {
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #666;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.stat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7cb342 0%, #558b2f 100%);
+    border-radius: 4px;
+    transition: width .4s ease;
+}
+
+.stat-fill.stat-gain {
+    background: linear-gradient(90deg, #ff6f00 0%, #e65100 100%);
+}
+
+.stat-fill.stat-rep {
+    background: linear-gradient(90deg, #d32f2f 0%, #b71c1c 100%);
+}
+
+.stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1b1b1b;
+    display: block;
+}
+
+/* ===== PANTALLA DE RESULTADO ===== */
+.game-result {
+    text-align: center;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-box {
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: resultBoxIn .8s ease-out .1s forwards;
+}
+
+.result-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: #1b1b1b;
+    margin: 0 0 12px 0;
+}
+
+.result-message {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 28px 0;
+    max-width: 560px;
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.result-stat {
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+.result-stat-label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #666;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.result-stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: #d39a2a;
+    display: block;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes gameTitleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes gameIntroIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes gameButtonIn {
+    0% {
+        opacity: 0;
+        transform: translateY(14px) scale(.95);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes gameProgressIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes scenarioIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-16px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes decisionIn {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes statsIn {
+    0% {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes resultBoxIn {
+    0% {
+        opacity: 0;
+        transform: scale(.96);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+    .game-content {
+        padding: 40px 24px;
+    }
+
+    .game-title {
+        font-size: 2rem;
+    }
+
+    .game-intro {
+        font-size: 1rem;
+    }
+
+    .scenario-box {
+        padding: 20px;
+    }
+
+    .scenario-title {
+        font-size: 1.1rem;
+    }
+
+    .scenario-text {
+        font-size: 0.95rem;
+    }
+
+    .decision-buttons {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .decision-btn {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
+
+    .game-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .result-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .result-title {
+        font-size: 1.8rem;
+    }
+
+    .result-message {
+        font-size: 0.95rem;
+    }
+}
