@@ -1,0 +1,466 @@
+/* Sección de Comentarios */
+
+.comments-section {
+    position: relative;
+    width: 100%;
+    padding: 100px 40px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #f9f9f9 100%);
+    overflow: hidden;
+}
+
+.comments-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== ENCABEZADO ===== */
+.comments-header {
+    text-align: center;
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: headerFadeIn 0.8s ease-out 0.2s forwards;
+}
+
+.comments-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.comments-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #888;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ===== FORMULARIO DE COMENTARIOS ===== */
+.comment-form-wrapper {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: formFadeIn 0.8s ease-out 0.3s forwards;
+    border-top: 4px solid #2196f3;
+}
+
+.comment-form-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    margin: 0 0 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-form-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    background: #2196f3;
+    border-radius: 2px;
+}
+
+/* Grupo de formulario */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fafafa;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2196f3;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Botón de envío */
+.submit-btn {
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Mensaje de éxito */
+.success-message {
+    display: none;
+    padding: 14px 16px;
+    background: #c8e6c9;
+    border-left: 4px solid #4caf50;
+    border-radius: 8px;
+    color: #2e7d32;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+    animation: slideIn 0.4s ease;
+}
+
+.success-message.show {
+    display: block;
+}
+
+/* ===== LISTA DE COMENTARIOS ===== */
+.comments-list-wrapper {
+    opacity: 0;
+    animation: listFadeIn 0.8s ease-out 0.4s forwards;
+}
+
+.comments-count {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comments-count span {
+    display: inline-block;
+    min-width: 32px;
+    height: 32px;
+    background: #2196f3;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== TARJETA DE COMENTARIO ===== */
+.comment-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #e0e0e0;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: commentSlideIn 0.6s ease-out forwards;
+    position: relative;
+}
+
+.comment-item:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateX(4px);
+}
+
+.comment-item:nth-child(1) { animation-delay: 0s; }
+.comment-item:nth-child(2) { animation-delay: 0.1s; }
+.comment-item:nth-child(3) { animation-delay: 0.2s; }
+.comment-item:nth-child(4) { animation-delay: 0.3s; }
+.comment-item:nth-child(5) { animation-delay: 0.4s; }
+.comment-item:nth-child(n+6) { animation-delay: 0.5s; }
+
+/* Encabezado del comentario */
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.comment-author {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.comment-date {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.comment-email {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #2196f3;
+    margin-top: 4px;
+}
+
+/* Contenido del comentario */
+.comment-content {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 12px 0 0 0;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* Botón de eliminar */
+.delete-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #ffebee;
+    border: none;
+    color: #c62828;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.comment-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    background: #ef5350;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Estado vacío */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 0.3s forwards;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.empty-state-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #aaa;
+    margin: 0;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes headerFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes formFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes listFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes commentSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .comments-section {
+        padding: 60px 20px;
+    }
+
+    .comment-form-wrapper {
+        padding: 28px 20px;
+    }
+
+    .comments-title {
+        font-size: 2rem;
+    }
+
+    .comments-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .comment-form-title {
+        font-size: 1.1rem;
+    }
+
+    .comment-item {
+        padding: 18px;
+    }
+
+    .delete-btn {
+        position: static;
+        margin-top: 12px;
+        width: 100%;
+        opacity: 1;
+    }
+
+    .delete-btn:hover {
+        opacity: 0.9;
+    }
+}
+
+@media (max-width: 480px) {
+    .comments-section {
+        padding: 40px 16px;
+    }
+
+    .comment-form-wrapper {
+        padding: 20px 16px;
+    }
+
+    .comments-title {
+        font-size: 1.6rem;
+    }
+
+    .comments-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .submit-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+
+    .comment-item {
+        padding: 16px;
+    }
+
+    .comment-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .comment-date {
+        align-self: flex-start;
+    }
+}

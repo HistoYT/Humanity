@@ -1,0 +1,454 @@
+/* Sección Definición de Negocios Éticos e Inclusivos */
+
+.def-negocios-section {
+    position: relative;
+    width: 100%;
+    padding: 100px 40px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e3f2fd 50%, #f3e5f5 100%);
+    overflow: hidden;
+}
+
+.def-negocios-container {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== TARJETAS DE PILARES ===== */
+.pilar-card {
+    position: relative;
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+    animation: pilarCardIn 0.8s ease-out forwards;
+    border-top: 5px solid #2196f3;
+}
+
+.pilar-card:nth-child(1) { animation-delay: 0.1s; border-top-color: #2196f3; }
+.pilar-card:nth-child(2) { animation-delay: 0.2s; border-top-color: #4caf50; }
+.pilar-card:nth-child(3) { animation-delay: 0.3s; border-top-color: #ff9800; }
+.pilar-card:nth-child(4) { animation-delay: 0.4s; border-top-color: #9c27b0; }
+
+.pilar-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+/* Icono del pilar */
+.pilar-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: inline-block;
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+.pilar-card:nth-child(1) .pilar-icon { animation-delay: 0s; }
+.pilar-card:nth-child(2) .pilar-icon { animation-delay: 0.2s; }
+.pilar-card:nth-child(3) .pilar-icon { animation-delay: 0.4s; }
+.pilar-card:nth-child(4) .pilar-icon { animation-delay: 0.6s; }
+
+/* Número del pilar */
+.pilar-number {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: rgba(33, 150, 243, 0.08);
+    line-height: 1;
+}
+
+.pilar-card:nth-child(2) .pilar-number { color: rgba(76, 175, 80, 0.08); }
+.pilar-card:nth-child(3) .pilar-number { color: rgba(255, 152, 0, 0.08); }
+.pilar-card:nth-child(4) .pilar-number { color: rgba(156, 39, 176, 0.08); }
+
+/* Título del pilar */
+.pilar-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Descripción */
+.pilar-description {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+/* Lista de beneficios */
+.pilar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pilar-list li {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #2196f3;
+    opacity: 0;
+    animation: listItemIn 0.6s ease-out forwards;
+}
+
+.pilar-card:nth-child(2) .pilar-list li { color: #4caf50; }
+.pilar-card:nth-child(3) .pilar-list li { color: #ff9800; }
+.pilar-card:nth-child(4) .pilar-list li { color: #9c27b0; }
+
+.pilar-list li:nth-child(1) { animation-delay: 0.5s; }
+.pilar-list li:nth-child(2) { animation-delay: 0.6s; }
+.pilar-list li:nth-child(3) { animation-delay: 0.7s; }
+
+/* ===== CARACTERÍSTICAS PRINCIPALES ===== */
+.def-negocios-features {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.05) 0%, rgba(76, 175, 80, 0.05) 100%);
+    border-radius: 20px;
+    border-left: 6px solid #2196f3;
+}
+
+.features-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin: 0 0 40px 0;
+    text-align: center;
+    opacity: 0;
+    animation: titleFadeIn 0.8s ease-out 0.2s forwards;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s ease;
+    opacity: 0;
+    animation: featureItemIn 0.7s ease-out forwards;
+}
+
+.feature-item:nth-child(1) { animation-delay: 0.1s; }
+.feature-item:nth-child(2) { animation-delay: 0.2s; }
+.feature-item:nth-child(3) { animation-delay: 0.3s; }
+.feature-item:nth-child(4) { animation-delay: 0.4s; }
+.feature-item:nth-child(5) { animation-delay: 0.5s; }
+.feature-item:nth-child(6) { animation-delay: 0.6s; }
+
+.feature-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(33, 150, 243, 0.15);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.feature-item h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+}
+
+.feature-item p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ===== FRASE FINAL ===== */
+.def-negocios-phrase {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 50px 40px;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
+    border-radius: 16px;
+    border: 2px solid rgba(33, 150, 243, 0.2);
+    opacity: 0;
+    animation: phraseIn 1s ease-out 0.8s forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.def-negocios-phrase::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #2196f3, transparent);
+    animation: shimmerLine 2s ease-in-out 1s infinite;
+}
+
+.def-negocios-phrase p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes pilarCardIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes listItemIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes featureItemIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes titleFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes phraseIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes shimmerLine {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .def-negocios-section {
+        padding: 80px 30px;
+    }
+
+    .def-negocios-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+        margin-bottom: 60px;
+    }
+
+    .features-title {
+        font-size: 1.6rem;
+    }
+
+    .pilar-title {
+        font-size: 1.2rem;
+    }
+
+    .def-negocios-phrase p {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .def-negocios-section {
+        padding: 60px 20px;
+    }
+
+    .def-negocios-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 50px;
+    }
+
+    .pilar-card {
+        padding: 24px 16px;
+    }
+
+    .pilar-title {
+        font-size: 1.1rem;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .feature-item {
+        padding: 18px 12px;
+    }
+
+    .features-title {
+        font-size: 1.4rem;
+        margin-bottom: 30px;
+    }
+
+    .def-negocios-phrase {
+        padding: 35px 24px;
+    }
+
+    .def-negocios-phrase p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .def-negocios-section {
+        padding: 40px 16px;
+    }
+
+    .def-negocios-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+
+    .pilar-card {
+        padding: 20px 16px;
+    }
+
+    .pilar-title {
+        font-size: 1rem;
+    }
+
+    .pilar-icon {
+        font-size: 2.2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+    }
+
+    .feature-item {
+        padding: 16px 12px;
+    }
+
+    .feature-icon {
+        font-size: 2rem;
+    }
+
+    .feature-item h4 {
+        font-size: 0.95rem;
+    }
+
+    .features-title {
+        font-size: 1.2rem;
+    }
+
+    .def-negocios-phrase {
+        padding: 28px 18px;
+    }
+
+    .def-negocios-phrase p {
+        font-size: 1rem;
+    }
+}
+
+/* Efecto de brillo adicional */
+.pilar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: shine 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}

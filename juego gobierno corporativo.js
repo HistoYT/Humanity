@@ -52,6 +52,57 @@ const gameData = {
                 gains: +40,
                 reputation: -40
             }
+        },
+        {
+            id: 4,
+            title: "Presión accionista vs. sostenibilidad",
+            text: "Los accionistas exigen máximas ganancias trimestrales. La junta propone reducir gastos en investigación ambiental (muy costosa) y pagar dividendos extraordinarios. Sabes que esto comprometería objetivos ESG a largo plazo. ¿Qué decides?",
+            optionA: {
+                text: "Mantener inversión ambiental y explicar el valor a largo plazo a accionistas",
+                transparency: +15,
+                gains: -18,
+                reputation: +25
+            },
+            optionB: {
+                text: "Ceder a la presión; reducir gastos ambientales para maximizar dividendos",
+                transparency: -35,
+                gains: +35,
+                reputation: -30
+            }
+        },
+        {
+            id: 5,
+            title: "Silenciamiento de denunciante interno",
+            text: "Un empleado te informa sobre prácticas laborales cuestionables en una filial. Tu equipo legal sugiere ofrecerle una compensación generosa a cambio de su silencio. Revelar el problema públicamente causará escándalo, pero ocultarlo es éticamente cuestionable. ¿Cuál es tu postura?",
+            optionA: {
+                text: "Investigar transparentemente, remediar el problema y proteger al denunciante",
+                transparency: +40,
+                gains: -25,
+                reputation: +40
+            },
+            optionB: {
+                text: "Ofrecer compensación confidencial para enterrar el asunto discretamente",
+                transparency: -50,
+                gains: +15,
+                reputation: -45
+            }
+        },
+        {
+            id: 6,
+            title: "Crisis de confianza global",
+            text: "Una investigación periodística revela prácticas cuestionables de décadas. Tienes dos opciones: admitir responsabilidad histórica, pedir perdón y restructurar completamente, o negar y culpar a 'malas manzanas' del pasado. ¿Cómo respondes?",
+            optionA: {
+                text: "Asumir responsabilidad total, transparencia radical y reforma institucional profunda",
+                transparency: +50,
+                gains: -30,
+                reputation: +50
+            },
+            optionB: {
+                text: "Negar culpa corporativa y culpar a empleados anteriores; mantener status quo",
+                transparency: -60,
+                gains: +20,
+                reputation: -60
+            }
         }
     ]
 };
@@ -137,17 +188,6 @@ class CorporateGame {
         // Actualizar stats
         this.updateStatsDisplay();
 
-        // Dispatch custom event so other sections (timeline) can react
-        try{
-            const event = new CustomEvent('gameDecision', { detail: {
-                scenarioIndex: this.currentScenario,
-                choice: option,
-                impact: decision,
-                stats: { ...this.stats }
-            }});
-            document.dispatchEvent(event);
-        }catch(e){ /* ignore if CustomEvent not supported */ }
-
         // Pausa antes de siguiente escenario
         setTimeout(() => {
             this.currentScenario++;
@@ -199,16 +239,6 @@ class CorporateGame {
         document.getElementById('resultTransparency').textContent = this.stats.transparency + '%';
         document.getElementById('resultGains').textContent = this.stats.gains + '%';
         document.getElementById('resultReputation').textContent = this.stats.reputation + '%';
-
-        // Dispatch game end event so timeline can reflect final outcome (e.g., collapse)
-        try{
-            const endEvent = new CustomEvent('gameEnd', { detail: {
-                stats: { ...this.stats },
-                resultTitle,
-                resultMessage
-            }});
-            document.dispatchEvent(endEvent);
-        }catch(e){}
     }
 
     restartGame() {
@@ -221,21 +251,5 @@ class CorporateGame {
 
 // Inicializar el juego cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    // Crear instancia y exponerla para integraciones (timeline)
-    try{
-        window.corporateGame = new CorporateGame();
-        document.dispatchEvent(new Event('gameReady'));
-    }catch(e){
-        console.error('No se pudo inicializar el juego', e);
-    }
+    new CorporateGame();
 });
-
-// Permitir iniciar el juego desde un escenario específico (timeline)
-CorporateGame.prototype.startFrom = function(index){
-    if(typeof index !== 'number' || index < 0) index = 0;
-    this.currentScenario = index;
-    // Reiniciar estadísticas a estado base
-    this.stats = { transparency: 50, gains: 50, reputation: 50 };
-    this.showGameScreen();
-    this.loadScenario();
-};
