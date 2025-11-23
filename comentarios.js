@@ -1,13 +1,17 @@
-// Sistema de Comentarios - Versión con localStorage
+// Sistema de Comentarios - Versión con Firebase (comentarios públicos compartidos)
 
 class CommentsSystem {
     constructor() {
         this.comments = [];
-        this.storageKey = 'humanity_comments';
+        this.db = null;
+        this.commentsRef = null;
         this.init();
     }
 
     async init() {
+        // Esperar a que Firebase esté disponible
+        await this.waitForFirebase();
+        
         // Obtener elementos del DOM
         this.form = document.getElementById('commentForm');
         this.commentsList = document.getElementById('commentsList');
@@ -18,31 +22,67 @@ class CommentsSystem {
             this.form.addEventListener('submit', (e) => this.handleSubmit(e));
         }
 
-        // Cargar comentarios
+        // Cargar comentarios desde Firebase
         this.loadComments();
-        this.renderComments();
+    }
+
+    waitForFirebase() {
+        return new Promise((resolve) => {
+            const checkInterval = setInterval(() => {
+                if (window.firebaseDB) {
+                    clearInterval(checkInterval);
+                    this.db = window.firebaseDB;
+                    this.commentsRef = this.db.ref('comments');
+                    resolve();
+                }
+            }, 100);
+            // Timeout de 5 segundos
+            setTimeout(() => {
+                clearInterval(checkInterval);
+                console.error('Firebase no cargó a tiempo');
+                resolve();
+            }, 5000);
+        });
     }
 
     loadComments() {
-        try {
-            const stored = localStorage.getItem(this.storageKey);
-            this.comments = stored ? JSON.parse(stored) : [];
-        } catch (error) {
-            console.error('Error loading comments:', error);
-            this.comments = [];
+        if (!this.commentsRef) {
+            console.error('Comments reference not initialized');
+            return;
         }
-    }
 
-    saveComments() {
-        try {
-            localStorage.setItem(this.storageKey, JSON.stringify(this.comments));
-        } catch (error) {
-            console.error('Error saving comments:', error);
-        }
+        // Escuchar cambios en tiempo real
+        this.commentsRef.on('value', (snapshot) => {
+            this.comments = [];
+            const data = snapshot.val();
+            // Debug: mostrar en consola cuántos comentarios llegan
+            console.debug('Firebase snapshot for comments:', data);
+            
+            if (data) {
+                // Convertir objeto a array
+                Object.keys(data).forEach(key => {
+                    this.comments.push({
+                        id: key,
+                        ...data[key]
+                    });
+                });
+                // Ordenar por timestamp descendente (últimos primero)
+                this.comments.sort((a, b) => b.timestamp - a.timestamp);
+            }
+            
+            this.renderComments();
+        }, (error) => {
+            console.error('Error loading comments from Firebase:', error);
+        });
     }
 
     async handleSubmit(e) {
         e.preventDefault();
+
+        if (!this.commentsRef) {
+            this.showError('Sistema de comentarios aún se está inicializando...');
+            return;
+        }
 
         // Obtener valores del formulario
         const name = document.getElementById('commentName').value.trim();
@@ -61,13 +101,19 @@ class CommentsSystem {
             return;
         }
 
+        // Limitar longitud
+        if (text.length > 1000) {
+            this.showError('El comentario no puede exceder 1000 caracteres');
+            return;
+        }
+
         try {
             // Crear comentario
-            const comment = {
-                id: Date.now(),
+            const newComment = {
                 name: this.sanitizeInput(name),
                 email: this.sanitizeInput(email),
                 text: this.sanitizeInput(text),
+                timestamp: new Date().getTime(),
                 date: new Date().toLocaleString('es-ES', {
                     year: 'numeric',
                     month: 'long',
@@ -77,18 +123,14 @@ class CommentsSystem {
                 })
             };
 
-            // Agregar comentario
-            this.comments.unshift(comment);
-            this.saveComments();
+            // Guardar en Firebase
+            await this.commentsRef.push(newComment);
 
             // Limpiar formulario
             this.form.reset();
 
             // Mostrar mensaje de éxito
             this.showSuccessMessage();
-
-            // Renderizar comentarios
-            this.renderComments();
         } catch (error) {
             console.error('Error submitting comment:', error);
             this.showError('Error al publicar comentario: ' + error.message);
@@ -123,21 +165,27 @@ class CommentsSystem {
             const commentEl = this.createCommentElement(comment);
             this.commentsList.appendChild(commentEl);
 
-            // Agregar animación escalonada
-            setTimeout(() => {
-                commentEl.style.opacity = '0';
-                commentEl.style.transform = 'translateX(-20px)';
-                setTimeout(() => {
+            // Agregar animación escalonada: confiar en las reglas de CSS
+            // en lugar de forzar estilos inline que pueden dejar el elemento invisible.
+            // Usamos requestAnimationFrame para asegurar que el elemento está en el DOM
+            // antes de aplicar la animación inline (fallback). También añadimos
+            // logs para depuración en caso de que no se rendericen.
+            requestAnimationFrame(() => {
+                try {
                     commentEl.style.animation = `commentSlideIn 0.6s ease-out forwards`;
                     commentEl.style.animationDelay = `${index * 0.1}s`;
-                }, 10);
-            }, 10);
+                } catch (err) {
+                    // No debería ocurrir; registrar para depuración.
+                    console.error('Error applying animation to comment element:', err);
+                }
+            });
         });
     }
 
     createCommentElement(comment) {
         const div = document.createElement('li');
         div.className = 'comment-item';
+        const commentId = comment.id; // Guardar el ID de Firebase
         div.innerHTML = `
             <div class="comment-header">
                 <div>
@@ -147,7 +195,7 @@ class CommentsSystem {
                 </div>
             </div>
             <p class="comment-content">${comment.text}</p>
-            <button class="delete-btn" onclick="commentsSystem.deleteComment(${comment.id})">Eliminar</button>
+            <button class="delete-btn" onclick="commentsSystem.deleteComment('${commentId}')">Eliminar</button>
         `;
         return div;
     }
@@ -155,9 +203,7 @@ class CommentsSystem {
     async deleteComment(id) {
         if (confirm('¿Estás seguro que deseas eliminar este comentario?')) {
             try {
-                this.comments = this.comments.filter(c => c.id !== id);
-                this.saveComments();
-                this.renderComments();
+                await this.commentsRef.child(id).remove();
             } catch (error) {
                 console.error('Error deleting comment:', error);
                 this.showError('Error al eliminar comentario');
