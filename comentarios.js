@@ -12,6 +12,9 @@ class CommentsSystem {
         // Esperar a que Firebase esté disponible
         await this.waitForFirebase();
         
+        // Identificador local del propietario (persistente en el navegador)
+        this.localOwnerId = this.getOrCreateOwnerId();
+        this.localEmail = localStorage.getItem('commentEmail') || '';
         // Obtener elementos del DOM
         this.form = document.getElementById('commentForm');
         this.commentsList = document.getElementById('commentsList');
@@ -112,6 +115,7 @@ class CommentsSystem {
             const newComment = {
                 name: this.sanitizeInput(name),
                 email: this.sanitizeInput(email),
+                ownerId: this.getOrCreateOwnerId(),
                 text: this.sanitizeInput(text),
                 timestamp: new Date().getTime(),
                 date: new Date().toLocaleString('es-ES', {
@@ -128,6 +132,9 @@ class CommentsSystem {
 
             // Limpiar formulario
             this.form.reset();
+
+            // Guardar email localmente para futuras comprobaciones (fallback)
+            try { localStorage.setItem('commentEmail', email); this.localEmail = email; } catch (err) { /* ignore */ }
 
             // Mostrar mensaje de éxito
             this.showSuccessMessage();
@@ -195,12 +202,40 @@ class CommentsSystem {
                 </div>
             </div>
             <p class="comment-content">${comment.text}</p>
-            <button class="delete-btn" onclick="commentsSystem.deleteComment('${commentId}')">Eliminar</button>
         `;
+
+        // Mostrar botón de eliminar SOLO si el comentario pertenece al cliente actual.
+        const localOwnerId = this.getOrCreateOwnerId();
+        const localEmail = localStorage.getItem('commentEmail') || this.localEmail || '';
+
+        const isOwner = (comment.ownerId && comment.ownerId === localOwnerId) ||
+                        (!comment.ownerId && comment.email === localEmail && localEmail !== '');
+
+        if (isOwner) {
+            const btn = document.createElement('button');
+            btn.className = 'delete-btn';
+            btn.textContent = 'Eliminar';
+            btn.addEventListener('click', () => this.deleteComment(commentId));
+            div.appendChild(btn);
+        }
+
         return div;
     }
 
     async deleteComment(id) {
+        // Verificar que el comentario a borrar pertenece al usuario local (client-side)
+        const commentObj = this.comments.find(c => c.id === id);
+        const localOwnerId = this.getOrCreateOwnerId();
+        const localEmail = localStorage.getItem('commentEmail') || this.localEmail || '';
+
+        const ownerMatches = commentObj && ((commentObj.ownerId && commentObj.ownerId === localOwnerId) ||
+            (!commentObj.ownerId && commentObj.email === localEmail && localEmail !== ''));
+
+        if (!ownerMatches) {
+            this.showError('No puedes eliminar un comentario que no es tuyo.');
+            return;
+        }
+
         if (confirm('¿Estás seguro que deseas eliminar este comentario?')) {
             try {
                 await this.commentsRef.child(id).remove();
@@ -225,6 +260,26 @@ class CommentsSystem {
 
     showError(message) {
         alert(message);
+    }
+
+    getOrCreateOwnerId() {
+        try {
+            let id = localStorage.getItem('commentOwnerId');
+            if (!id) {
+                // Generador simple de id seguro usando crypto cuando esté disponible
+                if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+                    const arr = new Uint8Array(12);
+                    crypto.getRandomValues(arr);
+                    id = Array.from(arr).map(n => n.toString(16).padStart(2, '0')).join('');
+                } else {
+                    id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,9)}`;
+                }
+                localStorage.setItem('commentOwnerId', id);
+            }
+            return id;
+        } catch (err) {
+            return null;
+        }
     }
 
     isValidEmail(email) {
