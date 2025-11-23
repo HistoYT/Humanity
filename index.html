@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="definicion voluntariado y fundaciones.css">
     <link rel="stylesheet" href="negocios eticos inclusivos.css">
     <link rel="stylesheet" href="definicion negocio etico inclusivo.css">
+    <link rel="stylesheet" href="comentarios.css">
 </head>
 <body>
 
@@ -285,6 +286,7 @@ La ISO 9000 reúne los principios que ayudan a las empresas a ofrecer productos 
         </div>
     </section>
 
+   
 
  <section class="escandalos-section" id="escandalos-section">
         <img src="https://www.carllevincenter.org/wp-content/uploads/2021/12/Enron-Stock-Graphic-768x578.png" alt="Escándalos empresariales" class="esc-bg-img">
@@ -605,10 +607,53 @@ La ISO 9000 reúne los principios que ayudan a las empresas a ofrecer productos 
         </div>
     </section>
 
+ <!-- Sección de Comentarios -->
+    <section class="comments-section" id="comments-section">
+        <div class="comments-container">
+            <!-- Encabezado -->
+            <div class="comments-header">
+                <h2 class="comments-title">Tu Voz Importa</h2>
+                <p class="comments-subtitle">Comparte tus reflexiones, experiencias y perspectivas sobre ética, sostenibilidad e impacto social</p>
+            </div>
+
+            <!-- Formulario de comentarios -->
+            <div class="comment-form-wrapper">
+                <h3 class="comment-form-title">Deja tu Comentario</h3>
+                <form id="commentForm">
+                    <div class="form-group">
+                        <label for="commentName">Nombre *</label>
+                        <input type="text" id="commentName" placeholder="Tu nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="commentEmail">Email *</label>
+                        <input type="email" id="commentEmail" placeholder="tu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="commentText">Comentario *</label>
+                        <textarea id="commentText" placeholder="Comparte tu pensamiento aquí..." required></textarea>
+                    </div>
+
+                    <div class="success-message">✅ ¡Comentario publicado con éxito!</div>
+                    <button type="submit" class="submit-btn">Publicar Comentario</button>
+                </form>
+            </div>
+
+            <!-- Lista de comentarios -->
+            <div class="comments-list-wrapper">
+                <div class="comments-count">
+                    📝 <strong>Comentarios:</strong> <span>0</span>
+                </div>
+                <ul class="comments-list" id="commentsList"></ul>
+            </div>
+        </div>
+    </section>
 
 
 
     <script src="juego gobierno corporativo.js"></script>
     <script src="caso enron.js"></script>
     <script src="navegacion.js"></script>
+    <script src="comentarios.js"></script>
 </html>

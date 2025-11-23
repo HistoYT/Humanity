@@ -1,13 +1,15 @@
-// Sistema de Comentarios Funcional con localStorage
+// Sistema de Comentarios con Backend
+
+const API_URL = 'http://localhost:5000/api/comments';
 
 class CommentsSystem {
     constructor() {
-        this.storageKey = 'humanity_comments';
-        this.comments = this.loadComments();
+        this.comments = [];
+        this.useBackend = true; // Cambiar a false para usar localStorage
         this.init();
     }
 
-    init() {
+    async init() {
         // Obtener elementos del DOM
         this.form = document.getElementById('commentForm');
         this.commentsList = document.getElementById('commentsList');
@@ -18,29 +20,47 @@ class CommentsSystem {
             this.form.addEventListener('submit', (e) => this.handleSubmit(e));
         }
 
-        // Renderizar comentarios al cargar
+        // Cargar comentarios
+        await this.loadComments();
         this.renderComments();
     }
 
-    loadComments() {
+    async loadComments() {
         try {
-            const stored = localStorage.getItem(this.storageKey);
-            return stored ? JSON.parse(stored) : [];
+            if (this.useBackend) {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Error al cargar comentarios');
+                const data = await response.json();
+                this.comments = data.data || [];
+            } else {
+                this.comments = this.loadFromLocalStorage();
+            }
         } catch (error) {
             console.error('Error loading comments:', error);
+            // Fallback a localStorage
+            this.comments = this.loadFromLocalStorage();
+        }
+    }
+
+    loadFromLocalStorage() {
+        try {
+            const stored = localStorage.getItem('humanity_comments');
+            return stored ? JSON.parse(stored) : [];
+        } catch (error) {
+            console.error('Error loading from localStorage:', error);
             return [];
         }
     }
 
-    saveComments() {
+    saveToLocalStorage() {
         try {
-            localStorage.setItem(this.storageKey, JSON.stringify(this.comments));
+            localStorage.setItem('humanity_comments', JSON.stringify(this.comments));
         } catch (error) {
-            console.error('Error saving comments:', error);
+            console.error('Error saving to localStorage:', error);
         }
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
 
         // Obtener valores del formulario
@@ -50,43 +70,65 @@ class CommentsSystem {
 
         // Validación
         if (!name || !email || !text) {
-            alert('Por favor completa todos los campos');
+            this.showError('Por favor completa todos los campos');
             return;
         }
 
         // Validación de email
         if (!this.isValidEmail(email)) {
-            alert('Por favor ingresa un email válido');
+            this.showError('Por favor ingresa un email válido');
             return;
         }
 
-        // Crear comentario
-        const comment = {
-            id: Date.now(),
-            name: this.sanitizeInput(name),
-            email: this.sanitizeInput(email),
-            text: this.sanitizeInput(text),
-            date: new Date().toLocaleString('es-ES', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            })
-        };
+        try {
+            if (this.useBackend) {
+                // Enviar al backend
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, text })
+                });
 
-        // Agregar comentario
-        this.comments.unshift(comment);
-        this.saveComments();
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
 
-        // Limpiar formulario
-        this.form.reset();
+                const data = await response.json();
+                this.comments.unshift(data.data);
+            } else {
+                // Guardar en localStorage
+                const comment = {
+                    id: Date.now(),
+                    name: this.sanitizeInput(name),
+                    email: this.sanitizeInput(email),
+                    text: this.sanitizeInput(text),
+                    date: new Date().toLocaleString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
+                };
+                this.comments.unshift(comment);
+                this.saveToLocalStorage();
+            }
 
-        // Mostrar mensaje de éxito
-        this.showSuccessMessage();
+            // Limpiar formulario
+            this.form.reset();
 
-        // Renderizar comentarios
-        this.renderComments();
+            // Mostrar mensaje de éxito
+            this.showSuccessMessage();
+
+            // Renderizar comentarios
+            this.renderComments();
+        } catch (error) {
+            console.error('Error submitting comment:', error);
+            this.showError('Error al publicar comentario: ' + error.message);
+        }
     }
 
     renderComments() {
@@ -146,11 +188,24 @@ class CommentsSystem {
         return div;
     }
 
-    deleteComment(id) {
+    async deleteComment(id) {
         if (confirm('¿Estás seguro que deseas eliminar este comentario?')) {
-            this.comments = this.comments.filter(c => c.id !== id);
-            this.saveComments();
-            this.renderComments();
+            try {
+                if (this.useBackend) {
+                    const response = await fetch(`${API_URL}/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (!response.ok) throw new Error('Error al eliminar');
+                }
+
+                this.comments = this.comments.filter(c => c.id !== id);
+                this.saveToLocalStorage();
+                this.renderComments();
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+                this.showError('Error al eliminar comentario');
+            }
         }
     }
 
@@ -164,6 +219,10 @@ class CommentsSystem {
             this.successMessage.classList.remove('show');
             this.successMessage.style.display = 'none';
         }, 3000);
+    }
+
+    showError(message) {
+        alert(message);
     }
 
     isValidEmail(email) {
