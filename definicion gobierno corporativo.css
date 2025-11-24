@@ -52,6 +52,53 @@
     font-style: italic;
 }
 
+/* ===== CONTENIDO AMPLIADO ===== */
+.def-gc-deep {
+    margin-top: 22px;
+    color: #333;
+    line-height: 1.65;
+}
+
+.def-gc-intro {
+    font-size: 1rem;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateX(-16px);
+    animation: gcIntroIn .7s cubic-bezier(.2,.9,.3,1) .18s forwards;
+}
+
+.def-gc-deep h4 {
+    font-size: 1.05rem;
+    margin: 16px 0 8px 0;
+    color: #1b1b1b;
+}
+
+.def-gc-list {
+    margin: 0 0 10px 18px;
+}
+.def-gc-list li {
+    margin-bottom: 8px;
+}
+
+.def-gc-practices {
+    margin: 0 0 12px 18px;
+}
+
+.def-gc-case {
+    display: block;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-left: 4px solid #d39a2a;
+    background: #fff8f1;
+    color: #5a3b00;
+    border-radius: 8px;
+}
+
+@keyframes gcIntroIn {
+    0% { opacity: 0; transform: translateX(-16px); }
+    100% { opacity: 1; transform: none; }
+}
+
 /* Línea decorativa dorada */
 .def-gc-accent {
     width: 60px;
