@@ -1,0 +1,194 @@
+/* Estilos para la sección "Por qué elegirnos" */
+:root{
+  --bg-elegir: #2e1022;
+  --accent: #c08d41;
+  --text-light: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.03);
+}
+
+.elegirnos-section {
+  background: linear-gradient(180deg, var(--bg-elegir) 0%, #1a0b12 100%);
+  color: var(--text-light);
+  padding: 100px 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Background Shapes */
+.elegirnos-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shape-e1 {
+  top: -10%;
+  right: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(192, 141, 65, 0.15), transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.shape-e2 {
+  bottom: 10%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(67, 24, 50, 0.4), transparent 70%);
+  border-radius: 50%;
+  filter: blur(50px);
+}
+
+.elegirnos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Header */
+.elegirnos-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeInDown 1s ease-out;
+}
+
+.elegirnos-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.elegirnos-title .highlight {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+
+.elegirnos-desc {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: justify;
+  margin: 0 auto;
+}
+
+/* Cards Grid */
+.elegirnos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.e-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.e-card:nth-child(1) { animation-delay: 0.2s; }
+.e-card:nth-child(2) { animation-delay: 0.4s; }
+.e-card:nth-child(3) { animation-delay: 0.6s; }
+
+.e-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.e-icon {
+  font-size: 3.5rem;
+  color: var(--accent);
+  margin-bottom: 25px;
+  transition: transform 0.4s ease;
+}
+
+.e-card:hover .e-icon {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.e-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.e-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* Footer / Button */
+.elegirnos-footer {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.elegirnos-btn {
+  padding: 16px 40px;
+  background: linear-gradient(45deg, var(--accent), #e0a95e);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(192, 141, 65, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.elegirnos-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(192, 141, 65, 0.5);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .elegirnos-section {
+    padding: 60px 20px;
+  }
+  .elegirnos-title {
+    font-size: 2.2rem;
+  }
+  .elegirnos-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .e-card {
+    padding: 30px 20px;
+  }
+}

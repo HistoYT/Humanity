@@ -1,106 +1,173 @@
-/* Reset básico */
-* {box-sizing: border-box; margin: 0; padding: 0}
-html, body {height: 100%}
-body {
-	font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-	background: #f6f3f0; /* color neutro para el resto de la página */
-	color: #2d1b0e;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 
 :root{
-	/* Paleta inspirada en la imagen */
-	--bg-orange: #cf7b22; /* encabezado principal */
-	--bg-orange-2: #b85b0f; /* degradado inferior */
-	--gold-1: #f4c96b;
-	--gold-2: #d39a2a;
-	--gold-3: #8b5c13;
-	--brand-dark: #6b3f12;
+	--accent: #c08d41;
+	--text: #222;
+	--bg: #fff;
 }
 
-/* Encabezado */
+html{
+	scroll-behavior:smooth;
+	scrollbar-color: var(--accent) #2e1022; /* Para Firefox */
+	scrollbar-width: auto;
+}
+
+/* Scrollbar Dorado Personalizado (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 18px;
+}
+::-webkit-scrollbar-track {
+    background: #2e1022; /* Fondo oscuro (tono vino) */
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent); /* Color dorado */
+    border-radius: 6px;
+    border: 3px solid #2e1022; /* Borde para efecto flotante */
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #e0a95e; /* Dorado más claro al pasar el mouse */
+}
+
+*{box-sizing:border-box}
+body{margin:0;font-family:'Montserrat', sans-serif;color:var(--text);background:var(--bg)}
+
 .site-header{
-	background: linear-gradient(180deg, var(--bg-orange) 0%, var(--bg-orange-2) 100%);
-	padding: 48px 16px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	background: linear-gradient(90deg, #ffffff, #3f0528); /* Tono vino oscuro futurista */
+	color: #fff;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	backdrop-filter: blur(10px);
+}
+.site-header .container{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 20px}
+
+.logo{display:flex;align-items:center;gap:0;text-decoration:none;color:inherit}
+.logo img.logo-img{display:block;width:48px;height:48px;}
+/* .brand removed (header shows only logo) */
+
+.main-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:24px}
+.main-nav a{color:rgba(255,255,255,0.9);text-decoration:none;padding:10px 15px;border-radius:50px;font-size:15px;font-weight:500;letter-spacing:0.5px;transition:all 0.3s ease}
+.main-nav a:hover{background:rgba(192, 141, 65, 0.15); color: var(--accent); transform: translateY(-2px);}
+
+.nav-toggle{display:none;background:none;border:0;padding:8px;cursor:pointer;color:inherit}
+.nav-toggle:focus{outline:2px solid rgba(255,255,255,0.18);outline-offset:2px}
+.hamburger{width:22px;height:2px;background:#fff;display:block;position:relative}
+.hamburger::before,.hamburger::after{content:"";position:absolute;left:0;width:22px;height:2px;background:#fff;transition:transform .25s ease}
+.hamburger::before{top:-7px}
+.hamburger::after{top:7px}
+
+/* Mobile styles */
+@media (max-width:768px){
+	.main-nav{position:fixed;top:0;left:-250px;width:250px;height:100vh;background:#2e1022;color:#fff;transition:left 0.3s ease;overflow-y:auto;z-index:1000;border-right:1px solid rgba(192,141,65,0.2);}
+	.main-nav ul{flex-direction:column;gap:0;padding:20px 0;}
+	.main-nav a{display:block;padding:16px 20px;color:#fff;font-size:18px;text-decoration:none;}
+	.main-nav a:hover{background:rgba(255,255,255,0.1);}
+	.nav-toggle{display:block}
+	.site-header .container{position:relative}
+	.main-nav.open{left:0;}
+
+	/* change hamburger into X when open */
+	.nav-toggle.open .hamburger{background:transparent}
+	.nav-toggle.open .hamburger::before{transform:rotate(45deg) translate(5px,5px)}
+	.nav-toggle.open .hamburger::after{transform:rotate(-45deg) translate(5px,-5px)}
+}
+
+/* Desktop small polish */
+@media (min-width:769px){
+	.main-nav{background:transparent;position:static}
+}
+
+/* Botón Flotante de WhatsApp - Estilo Konverge */
+.whatsapp-float {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	width: 65px;
+	height: 65px;
+	background: linear-gradient(135deg, var(--accent), #e0a95e); /* Gradiente Dorado */
+	color: #fff;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 32px;
+	box-shadow: 0 4px 20px rgba(192, 141, 65, 0.4);
+	z-index: 9999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: inset 0 -8px 0 rgba(0,0,0,0.06);
+	text-decoration: none;
+	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.header-inner{
-	width: 100%;
-	max-width: 1100px;
-	display: flex;
-	align-items: center;
-	gap: 28px;
+.whatsapp-float:hover {
+	transform: scale(1.1) translateY(-5px);
+	box-shadow: 0 10px 25px rgba(192, 141, 65, 0.6);
 }
 
-/* Emblema (cuadro con H y punto) */
-.emblem{
-	width: 128px;
-	height: 128px;
-	border-radius: 12px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-	background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 100%);
-	box-shadow: 0 12px 20px rgba(0,0,0,0.18), inset 0 -6px 12px rgba(0,0,0,0.06);
+.whatsapp-float i {
+	transition: transform 0.4s ease;
 }
 
-.emblem::after{
-	/* punto circular que aparece en la esquina superior derecha del emblema, similar al punto del logo */
+.whatsapp-float:hover i {
+	transform: rotate(15deg);
+}
+
+/* Ondas de pulso inmersivas */
+.whatsapp-float::before,
+.whatsapp-float::after {
 	content: '';
 	position: absolute;
-	width: 28px;
-	height: 28px;
+	inset: 0;
 	border-radius: 50%;
-	right: -10px;
-	top: -14px;
-	background: linear-gradient(180deg, var(--gold-1), #e6b745);
-	box-shadow: 0 6px 10px rgba(0,0,0,0.18);
+	border: 1px solid var(--accent);
+	z-index: -1;
+	animation: wspPulse 2s infinite;
 }
 
-.emblem-h{
-	font-weight: 800;
-	font-size: 68px;
-	color: rgba(30,18,9,0.95);
-	font-family: 'Poppins', sans-serif;
-	letter-spacing: 2px;
-	text-shadow: 0 2px 0 rgba(255,255,255,0.12), 0 6px 18px rgba(0,0,0,0.25);
+.whatsapp-float::after {
+	animation-delay: 0.5s;
 }
 
-.brand{display:flex;flex-direction:column}
-
-.brand-title{
-	font-size: 64px;
-	line-height: 1;
-	margin: 0;
-	font-weight: 800;
-	letter-spacing: 6px;
-	/* texto con degradado dorado */
-	background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
-	text-shadow: 0 3px 0 rgba(0,0,0,0.12), 0 10px 30px rgba(0,0,0,0.25);
+@keyframes wspPulse {
+	0% { transform: scale(1); opacity: 0.8; border-width: 1px; }
+	100% { transform: scale(1.8); opacity: 0; border-width: 0; }
 }
 
-.brand-sub{
-	margin-top: 8px;
-	color: rgba(255,245,230,0.9);
-	font-weight: 600;
+/* Tooltip elegante */
+.whatsapp-tooltip {
+	position: absolute;
+	right: 75px;
+	background: #2e1022; /* Tono vino oscuro */
+	color: var(--accent);
+	padding: 8px 16px;
+	border-radius: 50px;
 	font-size: 14px;
+	font-weight: 700;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(10px);
+	transition: all 0.3s ease;
+	white-space: nowrap;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	pointer-events: none;
 }
 
-.demo{padding:40px 20px;font-size:16px;color:#333}
-
-/* Responsividad */
-@media (max-width: 700px){
-	.header-inner{flex-direction:column;gap:16px;padding:8px}
-	.emblem{width:96px;height:96px}
-	.emblem-h{font-size:46px}
-	.brand-title{font-size:36px;letter-spacing:4px;text-align:center}
-	.brand-sub{text-align:center}
+.whatsapp-float:hover .whatsapp-tooltip {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(0);
 }
 
+/* Ajustes Responsive */
+@media (max-width: 768px) {
+	.whatsapp-float {
+		width: 55px;
+		height: 55px;
+		font-size: 28px;
+		bottom: 20px;
+		right: 20px;
+	}
+	.whatsapp-tooltip {
+		display: none; /* Ocultar tooltip en móvil */
+	}
+}

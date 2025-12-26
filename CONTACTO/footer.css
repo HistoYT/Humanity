@@ -1,0 +1,27 @@
+/* Estilos para el footer */
+.site-footer {
+  background: #634557; /* Same as elegirnos background */
+  color: #ffffff;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.site-footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .site-footer p {
+    font-size: 12px;
+  }
+}

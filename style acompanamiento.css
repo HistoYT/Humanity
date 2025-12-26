@@ -1,0 +1,121 @@
+/* Estilos para la sección "¿Necesitas acompañamiento?" */
+:root{
+  --accent: #c08d41;
+  --text-light: #fff;
+}
+
+.acompanamiento-section {
+  background: linear-gradient(135deg, #2e1022 0%, #431832 100%); /* Fondo oscuro elegante */
+  color: var(--text-light);
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decoración de fondo sutil */
+.acompanamiento-section::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(192, 141, 65, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.acompanamiento-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.acompanamiento-left {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.acompanamiento-icon {
+  font-size: 50px;
+  color: var(--accent);
+  margin-bottom: 0;
+  filter: drop-shadow(0 0 10px rgba(192, 141, 65, 0.4));
+  animation: floatIcon 3s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.acompanamiento-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  background: linear-gradient(90deg, #fff, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.acompanamiento-right {
+  flex: 1;
+  padding-left: 40px;
+  border-left: 2px solid rgba(192, 141, 65, 0.3);
+}
+
+.acompanamiento-text {
+  font-size: 18px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-align: justify;
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 900px) {
+  .acompanamiento-section {
+    padding: 60px 20px;
+  }
+  .acompanamiento-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  .acompanamiento-left {
+    align-items: center;
+    flex: auto;
+    justify-content: center;
+    width: 100%;
+  }
+  .acompanamiento-title {
+    font-size: 32px;
+  }
+  .acompanamiento-right {
+    padding-left: 0;
+    border-left: none;
+    border-top: 2px solid rgba(192, 141, 65, 0.3);
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .acompanamiento-left {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  .acompanamiento-icon { font-size: 45px; margin-bottom: 5px; }
+  .acompanamiento-title { font-size: 26px; }
+  .acompanamiento-text { font-size: 16px; line-height: 1.7; }
+}

@@ -1,0 +1,151 @@
+/* Estilos para la sección Propósito */
+
+.proposito {
+    position: relative;
+    padding: 60px 0;
+    background: #15080e; /* Tono oscuro coherente pero distinto */
+    color: #fff;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Background Shapes */
+.prop-bg-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.prop-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+}
+
+.prop-shape-1 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #c08d41, transparent);
+    animation: pulseShape 6s infinite alternate;
+}
+
+/* Layout */
+.prop-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1000px; /* Más compacto */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.prop-content {
+    flex: 1;
+    text-align: left;
+    animation: slideInLeftProp 0.8s ease-out;
+}
+
+.prop-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    color: #fff;
+}
+
+.prop-highlight {
+    color: #c08d41;
+    position: relative;
+    display: inline-block;
+}
+
+.prop-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: justify;
+}
+
+.prop-text strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Visual */
+.prop-visual {
+    flex: 0 0 35%;
+    display: flex;
+    justify-content: center;
+    animation: zoomInProp 1s ease-out;
+}
+
+.prop-img-wrapper {
+    position: relative;
+    border-radius: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    transform: rotate(3deg);
+    transition: transform 0.3s ease;
+}
+
+.prop-img-wrapper:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.prop-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Animations */
+@keyframes pulseShape {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.4; }
+}
+
+@keyframes slideInLeftProp {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes zoomInProp {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .prop-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    .prop-content {
+        text-align: center;
+    }
+    .prop-visual {
+        width: 100%;
+    }
+    .prop-img-wrapper {
+        transform: rotate(0);
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    .prop-title {
+        font-size: 2rem;
+    }
+}
